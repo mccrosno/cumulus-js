@@ -18,17 +18,15 @@ Matthew Crosno, junior Computer Engineering student at Mississippi State Univers
 - City Search
   - Lets users search for a city to view weather at that location.
 
-## Languages and APIs
+## Built With
 ### Languages
 - JavaScript
 - TypeScript
 - CSS
-
 ### Frameworks and Libraries
 - Next.js
 - React
 - Tailwind CSS
-
 ### APIs
 - OpenWeatherMap API (planned)
 - Browser Geolocation API (planned)
