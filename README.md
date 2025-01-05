@@ -19,7 +19,16 @@ Matthew Crosno, junior Computer Engineering student at Mississippi State Univers
   - Lets users search for a city to view weather at that location.
 
 ## Languages and APIs
+### Languages
 - JavaScript
-- React
-- HTML
+- TypeScript
 - CSS
+
+### Frameworks and Libraries
+- Next.js
+- React
+- Tailwind CSS
+
+### APIs
+- OpenWeatherMap API (planned)
+- Browser Geolocation API (planned)
