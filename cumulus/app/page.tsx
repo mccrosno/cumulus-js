@@ -1,8 +1,17 @@
-export default function Home() {
-  return (
-    <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
-      <h1 className="text-4xl font-bold text-blue-500">Welcome to Cumulus!</h1>
-      <p className="mt-4 text-gray-700">Your weather forecast app is coming soon.</p>
-    </div>
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Weather Display",
+  description: "Check the weather in your location.",
+  icons: {
+    icon: "/sunny_favicon.ico",
+  },
+};
+
+export default function WeatherDisplay() {
+  return(
+    <>
+      <div className="h-screen bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-400 to-70%"></div>
+    </>
   );
-}
+};
