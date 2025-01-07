@@ -1,17 +1,58 @@
-import type { Metadata } from "next"
+"use client"; // needed for useState hook
 
-export const metadata: Metadata = {
-  title: "Weather Display",
-  description: "Check the weather in your location.",
-  icons: {
-    icon: "/sunny_favicon.ico",
-  },
-};
+import { parseWeather } from "./api/weather";
+import { useState } from "react";
 
 export default function WeatherDisplay() {
+
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const getWeather = async () =>
+  {
+    if (!city.trim())
+    {
+      setError("Please enter a valid city name.");
+      return;
+    }
+    try
+    {
+      setError(null); // Clear previous errors
+      const data = await parseWeather(city);
+      setWeather(data); // Save data to state
+    }
+    catch (err)
+    {
+      console.error("Error fetching weather: ", err);
+      setError("Failed to fetch weather data.");
+    }
+  };
+
   return(
     <>
-      <div className="h-screen bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-400 to-70%"></div>
+      <div className="relative h-screen bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-400 to-70%">
+        <input
+          name='citySearch'
+          type='text'
+          value={city}
+          placeholder='Enter your city...'
+          onChange={event => setCity(event.target.value)} // when input is changed, sets city to contents of html element
+        />
+        <button
+        onClick={getWeather}
+        className="bg-blue-600"
+        >
+          Submit
+        </button>
+        {weather && (
+          <div className="mt-4">
+            <h2>Weather in {weather.name}</h2>
+            <p>Temperature: {Math.round(weather.main.temp)}°C</p>
+          </div>
+        )}
+      </div>
     </>
   );
+
 };

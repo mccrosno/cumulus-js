@@ -2,7 +2,7 @@ const API_KEY = '7afb70684b5202f4d7308dbcfb8ef7f5';
 const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast?';
 
 // Yields thread until return
-export async function getWeather(city : string)
+export async function parseWeather(city : string)
 {   
     // Fetches webpage with api
     const response = await fetch(`${BASE_URL}q=${city}&appid=${API_KEY}`);
