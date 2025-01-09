@@ -45,12 +45,12 @@ export default function WeatherDisplay() {
         >
           Submit
         </button>
-        {weather && (
-          <div className="mt-4">
-            <h2>Weather in {weather.name}</h2>
-            <p>Temperature: {Math.round(weather.main.temp)}°C</p>
+        { weather != null && 
+          <div>
+            <h2>Weather in {weather.city.name}</h2>
+            <p>Temperature: {weather.list[0].main.temp}°F</p>
           </div>
-        )}
+        }
       </div>
     </>
   );

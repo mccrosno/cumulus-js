@@ -5,7 +5,7 @@ const BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast?';
 export async function parseWeather(city : string)
 {   
     // Fetches webpage with api
-    const response = await fetch(`${BASE_URL}q=${city}&appid=${API_KEY}`);
+    const response = await fetch(`${BASE_URL}q=${city}&appid=${API_KEY}&units=imperial`);
 
     // No api requests left
     if (response.status == 429)
