@@ -1,6 +1,6 @@
 "use client"; // needed for useState hook
 
-import { parseWeather } from "./api/weatherAPI";
+import { parseWeather } from "./api/weatherapi";
 import { useState } from "react";
 
 // expand when more functionality is needed
