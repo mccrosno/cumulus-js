@@ -23,6 +23,7 @@ Matthew Crosno, junior Computer Engineering student at Mississippi State Univers
 - JavaScript
 - TypeScript
 - CSS
+- JSX
 ### Frameworks and Libraries
 - Next.js
 - React
