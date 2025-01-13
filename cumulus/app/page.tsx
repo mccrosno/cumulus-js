@@ -28,7 +28,8 @@ export default function WeatherDisplay() {
   {
     if (!city.trim())
     {
-      setError("Please enter a valid city name.");
+      setWeather(null); // Clear previous weather
+      setError("Error: Please enter a valid city name.");
       return;
     }
     try
@@ -39,8 +40,12 @@ export default function WeatherDisplay() {
     }
     catch (err)
     {
-      console.error("Error fetching weather: ", err);
-      setError("Failed to fetch weather data.");
+      setWeather(null); // Clear previous weather
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Error: An unknown error occurred.");
+      }
     }
   };
 
@@ -65,19 +70,30 @@ export default function WeatherDisplay() {
     </button>
   );
 
+  const bgColor = "bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-500 to-70%";
+
   return(
-    <>
-      { weather ?
-      (
-        <p>Weather!</p>
-      ):
-      (
-        <div>
+    <div className={`flex transition-colors justify-center items-center h-screen ${bgColor}`}>
+      <div className={`absolute transition-all duration-1000 ${weather ? 'top-2/3' : 'top-1/2'}`}>
           {citySearch}
           {submitButton}
-        </div>
-      )}
-    </>
+      </div>
+      <div className={`transition-all duration-1000 ${weather ? 'opacity-100' : 'opacity-0'}`}>
+        { weather &&
+          <div>
+            <h2>Weather in {weather.city.name}</h2>
+            <p>Temperature: {weather.list[0].main.temp}°F</p>
+          </div>
+        }
+      </div>
+      <div className={`absolute bg-rose-700 p-3 rounded-2xl transition-all duration-1000 ${error ? 'top-[90%]' : 'top-[110%]'}`}>
+        { error &&
+          <div>
+            <p className="text-white"> {error} </p>
+          </div>
+        }
+      </div>
+    </div>
   );
 
 };

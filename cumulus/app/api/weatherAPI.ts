@@ -12,6 +12,10 @@ export async function parseWeather(city : string, units : string = "imperial")
     {
         throw new Error('Error: API limit exceeded!');
     }
+    if (response.status == 404)
+    {
+        throw new Error('Error: City not found!');
+    }
     // Other error
     else if (!response.ok)
     {
