@@ -78,6 +78,10 @@ export default function WeatherDisplay() {
           {citySearch}
           {submitButton}
       </div>
+      <div className={`bg-white p-4 rounded-xl transition-all duration-1000 ${weather ? 'opacity-100 w-[60%]' : 'opacity-0 w-0'}`}>
+        <p className='text-black text-center'>Weather!</p>
+      </div>
+      {/*
       <div className={`transition-all duration-1000 ${weather ? 'opacity-100' : 'opacity-0'}`}>
         { weather &&
           <div>
@@ -86,6 +90,7 @@ export default function WeatherDisplay() {
           </div>
         }
       </div>
+      */}
       <div className={`absolute bg-rose-700 p-3 rounded-2xl transition-all duration-1000 ${error ? 'top-[90%]' : 'top-[110%]'}`}>
         { error &&
           <div>
