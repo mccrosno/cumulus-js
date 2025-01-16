@@ -73,7 +73,7 @@ export default function WeatherDisplay() {
   const bgColor = "bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-500 to-70%";
 
   return(
-    <div className={`flex relative justify-center items-center transition-colors h-screen overflow-hidden ${bgColor}`}>
+    <div className={`flex transition-colors justify-center items-center h-screen ${bgColor}`}>
       <div className={`absolute transition-all duration-1000 ${weather ? 'top-2/3' : 'top-1/2'}`}>
           {citySearch}
           {submitButton}
@@ -81,7 +81,17 @@ export default function WeatherDisplay() {
       <div className={`bg-white p-4 rounded-xl transition-all duration-1000 ${weather ? 'opacity-100 w-[60%]' : 'opacity-0 w-0'}`}>
         <p className='text-black text-center'>Weather!</p>
       </div>
-      <div className={`absolute bg-rose-700 p-3 rounded-2xl transition-all duration-1000 ${error ? 'bottom-[10%]' : '-bottom-[10%]'}`}>
+      {/*
+      <div className={`transition-all duration-1000 ${weather ? 'opacity-100' : 'opacity-0'}`}>
+        { weather &&
+          <div>
+            <h2>Weather in {weather.city.name}</h2>
+            <p>Temperature: {weather.list[0].main.temp}°F</p>
+          </div>
+        }
+      </div>
+      */}
+      <div className={`absolute bg-rose-700 p-3 rounded-2xl transition-all duration-1000 ${error ? 'top-[90%]' : 'top-[110%]'}`}>
         { error &&
           <div>
             <p className="text-white"> {error} </p>
