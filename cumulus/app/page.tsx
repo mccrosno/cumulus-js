@@ -1,6 +1,6 @@
 "use client"; // needed for useState hook
 
-import { parseWeather } from "./api/weatherapi";
+import { parseWeather } from "./api/weatherAPI";
 import { useEffect, useState } from "react";
 
 // expand when more functionality is needed
@@ -86,7 +86,7 @@ export default function WeatherDisplay() {
   const bgColor = "bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-500 to-70%";
 
   return(
-    <div className={`flex relative justify-center items-center transition-colors h-screen overflow-hidden ${bgColor}`}>
+    <div className={`flex flex-col min-h-[360] relative items-center transition-colors h-screen overflow-hidden ${bgColor}`}>
       <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[20%]' : 'bottom-[50%]'}`}>
           {citySearch}
           {submitButton}
