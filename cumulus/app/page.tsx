@@ -1,7 +1,7 @@
 "use client"; // needed for useState hook
 
 import { parseWeather } from "./api/weatherapi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // expand when more functionality is needed
 // cannot have weather as <any> because it is not a valid type with ESLint
@@ -22,6 +22,7 @@ export default function WeatherDisplay() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
 
   // Fetches weather data from API
   const getWeather = async () =>
@@ -63,25 +64,40 @@ export default function WeatherDisplay() {
 
   const submitButton = (
     <button
-    className="bg-blue-500 text-white px-4 py-2 rounded-r-xl hover:bg-blue-600"
+    className="transition-colors bg-blue-500 text-white px-4 py-2 rounded-r-xl hover:bg-blue-600"
     onClick={getWeather}
     >
       Submit
     </button>
   );
 
+  // Animate weather display
+  useEffect(() => {
+    if (weather) {
+      const timer = setTimeout(() => setLoaded(true), 1000);
+      return () => clearTimeout(timer);
+    }
+    else
+    {
+      setLoaded(false);
+    }
+  }, [weather]);
+
   const bgColor = "bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-500 to-70%";
 
   return(
     <div className={`flex relative justify-center items-center transition-colors h-screen overflow-hidden ${bgColor}`}>
-      <div className={`absolute transition-all duration-1000 ${weather ? 'top-2/3' : 'top-1/2'}`}>
+      <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[20%]' : 'bottom-[50%]'}`}>
           {citySearch}
           {submitButton}
       </div>
-      <div className={`bg-white p-4 rounded-xl transition-all duration-1000 ${weather ? 'opacity-100 w-[60%]' : 'opacity-0 w-0'}`}>
-        <p className='text-black text-center'>Weather!</p>
+      <div className={`flex absolute top-[45%] translate-y-[-50%] justify-center items-center bg-white rounded-xl
+        transition-[opacity,width,height,padding] duration-1000 ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'} ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}`}>
+        <p className={`text-black transition-[opacity] duration-500 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+          Weather!  
+        </p>
       </div>
-      <div className={`absolute bg-rose-700 p-3 rounded-2xl transition-all duration-1000 ${error ? 'bottom-[10%]' : '-bottom-[10%]'}`}>
+      <div className={`absolute bg-rose-700 p-3 rounded-2xl transition-[bottom] duration-1000 ${error ? 'bottom-[10%]' : 'bottom-[-10%]'}`}>
         { error &&
           <div>
             <p className="text-white"> {error} </p>
@@ -92,35 +108,3 @@ export default function WeatherDisplay() {
   );
 
 };
-
-
-/* OLD DESIGN
-    <>
-      <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-400 to-70%">
-        <div className="absolute bottom-10 flex justify-center items-center">
-          <input
-            className="border px-4 py-2 rounded-l-xl text-black"
-            name='citySearch'
-            type='text'
-            value={city}
-            placeholder='Enter your city...'
-            onChange={event => setCity(event.target.value)} // when input is changed, sets city to contents of html element
-          />
-          <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-r-xl hover:bg-blue-600"
-          onClick={getWeather}
-          >
-            Submit
-          </button>
-        </div>
-        { error ? (<p className="text-red-500"> Error! </p>) :
-        (null) }
-        { weather && (
-          <div>
-            <h2>Weather in {weather.city.name}</h2>
-            <p>Temperature: {weather.list[0].main.temp}°F</p>
-          </div>
-        )}
-      </div>
-    </>
-*/
