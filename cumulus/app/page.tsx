@@ -1,7 +1,11 @@
 "use client"; // needed for useState hook
 
+// Import API functions and React hooks
 import { parseWeather } from "./api/weatherAPI";
 import { useEffect, useState } from "react";
+
+// Import Components
+import CitySearch from "./components/CitySearch";
 
 // expand when more functionality is needed
 // cannot have weather as <any> because it is not a valid type with ESLint
@@ -87,10 +91,12 @@ export default function WeatherDisplay() {
 
   return(
     <div className={`flex flex-col min-h-[360] relative items-center transition-colors h-screen overflow-hidden ${bgColor}`}>
-      <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[20%]' : 'bottom-[50%]'}`}>
-          {citySearch}
-          {submitButton}
-      </div>
+      <CitySearch
+        city={city}
+        setCity={setCity}
+        getWeather={getWeather}
+        loaded={loaded}
+      />
       <div className={`flex absolute top-[45%] translate-y-[-50%] justify-center items-center bg-white rounded-xl
         transition-[opacity,width,height,padding] duration-1000 ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'} ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}`}>
         <p className={`text-black transition-[opacity] duration-500 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>

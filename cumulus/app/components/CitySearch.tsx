@@ -2,13 +2,15 @@ const CitySearch = ({
     city,
     setCity,
     getWeather,
+    loaded,
   }: {
     city: string;
     setCity: (city: string) => void;
     getWeather: () => void;
+    loaded: boolean;
   }) => {
     return (
-        <div className='flex'>
+        <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[20%]' : 'bottom-[50%]'}`}>
             <input
                 className="border px-4 py-2 rounded-l-xl text-black"
                 name='citySearch'
