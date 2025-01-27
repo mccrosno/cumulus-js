@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 
 // Import Components
 import CitySearch from "./components/CitySearch";
+import WeatherContainer from "./components/WeatherContainer";
+import WeatherDisplay from "./components/WeatherDisplay";
+import ErrorHandler from "./components/ErrorHandler";
 
 // expand when more functionality is needed
 // cannot have weather as <any> because it is not a valid type with ESLint
@@ -20,7 +23,7 @@ interface WeatherData {
   }[];
 }
 
-export default function WeatherDisplay() {
+export default function WeatherPage() {
 
   // State variables
   const [city, setCity] = useState("");
@@ -76,19 +79,12 @@ export default function WeatherDisplay() {
         getWeather={getWeather}
         loaded={loaded}
       />
-      <div className={`flex absolute top-[45%] translate-y-[-50%] justify-center items-center bg-white rounded-xl
-        transition-[opacity,width,height,padding] duration-1000 ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'} ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}`}>
+      <WeatherContainer weather={weather} loaded={loaded}>
         <p className={`text-black transition-[opacity] duration-500 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
           Weather!  
         </p>
-      </div>
-      <div className={`absolute bg-rose-700 p-3 rounded-2xl transition-[bottom] duration-1000 ${error ? 'bottom-[10%]' : 'bottom-[-10%]'}`}>
-        { error &&
-          <div>
-            <p className="text-white"> {error} </p>
-          </div>
-        }
-      </div>
+      </WeatherContainer>
+      <ErrorHandler error={error} />
     </div>
   );
 
