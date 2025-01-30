@@ -1,11 +1,12 @@
 import glassmorphic from "../utils/glassmorphic";
+import WeatherData from "../utils/weatherInterface";
 
 const WeatherContainer = ({
     weather,
     loaded,
     children,
 }: {
-    weather: any;
+    weather: WeatherData | null;
     loaded: boolean;
     children: React.ReactNode;
 }) => {
@@ -16,6 +17,7 @@ const WeatherContainer = ({
         ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}
         ${glassmorphic()}
     `;
+
     return (
         <div className={`${containerClasses}`}>
             {children}

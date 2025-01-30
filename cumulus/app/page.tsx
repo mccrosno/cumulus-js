@@ -3,25 +3,13 @@
 // Import API functions and React hooks
 import { parseWeather } from "./api/weatherAPI";
 import { useEffect, useState } from "react";
+import WeatherData from "./utils/weatherInterface";
 
 // Import Components
 import CitySearch from "./components/CitySearch";
 import WeatherContainer from "./components/WeatherContainer";
 import ErrorHandler from "./components/ErrorHandler";
 import WeatherDisplayContainer from "./components/WeatherDisplayContainer";
-
-// expand when more functionality is needed
-// cannot have weather as <any> because it is not a valid type with ESLint
-interface WeatherData {
-  city: {
-    name: string;
-  };
-  list: {
-    main: {
-      temp: number;
-    };
-  }[];
-}
 
 export default function WeatherPage() {
 
