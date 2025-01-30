@@ -1,3 +1,5 @@
+import glassmorphic from "../utils/glassmorphic";
+
 const WeatherContainer = ({
     weather,
     loaded,
@@ -7,10 +9,15 @@ const WeatherContainer = ({
     loaded: boolean;
     children: React.ReactNode;
 }) => {
+    const containerClasses = `
+        flex absolute top-[45%] translate-y-[-50%] justify-evenly items-center rounded-xl
+        transition-[opacity,width,height,padding] duration-1000
+        ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'}
+        ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}
+        ${glassmorphic()}
+    `;
     return (
-        <div className={`flex absolute top-[45%] translate-y-[-50%] justify-center items-center bg-white rounded-xl
-        transition-[opacity,width,height,padding] duration-1000 ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'}
-        ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}`}>
+        <div className={`${containerClasses}`}>
             {children}
         </div>
     );

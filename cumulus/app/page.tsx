@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 // Import Components
 import CitySearch from "./components/CitySearch";
 import WeatherContainer from "./components/WeatherContainer";
-import WeatherDisplay from "./components/WeatherDisplay";
 import ErrorHandler from "./components/ErrorHandler";
+import WeatherDisplayContainer from "./components/WeatherDisplayContainer";
 
 // expand when more functionality is needed
 // cannot have weather as <any> because it is not a valid type with ESLint
@@ -80,11 +80,15 @@ export default function WeatherPage() {
         loaded={loaded}
       />
       <WeatherContainer weather={weather} loaded={loaded}>
-        <p className={`text-black transition-[opacity] duration-500 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
-          Weather!  
-        </p>
+        <WeatherDisplayContainer>
+          <p className={`text-black transition-[opacity] duration-500 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+            Weather!  
+          </p>
+        </WeatherDisplayContainer>
       </WeatherContainer>
       <ErrorHandler error={error} />
+      {/* Simulated Cloud */}
+      {/*<p className={`bg-white text-black absolute top-[50%] opacity-[80%] right-[0%] -translate-y-[50%] w-[50%] h-[20%] rounded-full blur-2xl`}> Test </p>*/}
     </div>
   );
 
