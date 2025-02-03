@@ -15,6 +15,7 @@ export default function WeatherPage() {
 
   // State variables
   const [city, setCity] = useState("");
+  const [inputKey, setInputKey] = useState('');
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
