@@ -16,10 +16,11 @@ const WeatherContainer = ({
         ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'}
         ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}
         ${glassmorphic()}
+
     `;
 
     return (
-        <div className={`${containerClasses}`}>
+        <div className={`${containerClasses} `}>
             {children}
         </div>
     );
