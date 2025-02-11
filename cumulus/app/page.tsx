@@ -76,8 +76,8 @@ export default function WeatherPage() {
         </WeatherDisplayContainer>
       </WeatherContainer>
       <ErrorHandler error={error} />
-      {/* Simulated Cloud */}
-      <p className={`bg-white text-black absolute top-[50%] opacity-[80%] right-[0%] -translate-y-[50%] w-[50%] h-[20%] rounded-full blur-2xl`}> Test </p>
+      {/* Simulated Cloud 
+      <p className={`bg-white text-black absolute top-[50%] opacity-[80%] right-[0%] -translate-y-[50%] w-[50%] h-[20%] rounded-full blur-2xl`}> Test </p>*/}
     </div>
   );
 };
