@@ -12,17 +12,17 @@ const WeatherContainer = ({
     children: React.ReactNode;
 }) => {
     const containerClasses = `
-        flex absolute top-[45%] translate-y-[-50%] justify-evenly items-center
-        transition-[opacity,width,height,padding] duration-1000
+        flex items-center absolute top-[25%]
+        transition-[opacity,width,height] duration-1000
         ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'}
-        ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}
+        ${loaded ? 'h-[40%]' : 'h-0'}
         ${glassmorphic()}
     `;
 
     return (
         <div className={`${containerClasses} gradBorder`}>
             <i></i>
-            <div>
+            <div className="flex p-4 gap-4 justify-between items-center">
                 {children}
             </div>
         </div>

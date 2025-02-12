@@ -69,11 +69,13 @@ export default function WeatherPage() {
         loaded={loaded}
       />
       <WeatherContainer weather={weather} loaded={loaded}>
-        <WeatherDisplayContainer>
-          <p className={`text-black transition-[opacity] duration-500 delay-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
-            {weather ? `${weather.list[0].main.temp}°F` : ""}
-          </p>
-        </WeatherDisplayContainer>
+        <WeatherDisplayContainer/>
+        <WeatherDisplayContainer/>
+        <WeatherDisplayContainer/>
+        <WeatherDisplayContainer/>
+        <WeatherDisplayContainer/>
+        <WeatherDisplayContainer/>
+        <WeatherDisplayContainer/>
       </WeatherContainer>
       <ErrorHandler error={error} />
       {/* Simulated Cloud 

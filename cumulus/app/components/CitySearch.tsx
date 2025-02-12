@@ -19,7 +19,7 @@ const CitySearch = ({
 
 
     return (
-        <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[20%]' : 'bottom-[50%] z-[1]'}`}>
+        <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[25%]' : 'bottom-[50%] z-[1]'}`}>
             <input
                 className={`px-4 py-2 rounded-l-xl placeholder-gray-600 text-black`}
                 name='citySearch'
