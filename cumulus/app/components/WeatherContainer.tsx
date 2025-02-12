@@ -12,7 +12,7 @@ const WeatherContainer = ({
     children: React.ReactNode;
 }) => {
     const containerClasses = `
-        flex absolute top-[45%] translate-y-[-50%] justify-evenly items-center rounded-xl
+        flex absolute top-[45%] translate-y-[-50%] justify-evenly items-center
         transition-[opacity,width,height,padding] duration-1000
         ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'}
         ${loaded ? 'p-4 h-[50%]' : 'p-0.5 h-0'}
