@@ -20,9 +20,9 @@ const WeatherContainer = ({
     `;
 
     return (
-        <div className={`${containerClasses} gradBorder`}>
+        <div className={`${containerClasses} gradBorder overflow-x-auto custom-scrollbar`}>
             <i></i>
-            <div className="flex p-4 gap-4 justify-between items-center">
+            <div className="flex p-4 gap-4 w-full ">
                 {children}
             </div>
         </div>

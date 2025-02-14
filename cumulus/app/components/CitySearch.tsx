@@ -17,7 +17,6 @@ const CitySearch = ({
         }
     };
 
-
     return (
         <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[25%]' : 'bottom-[50%] z-[1]'}`}>
             <input
