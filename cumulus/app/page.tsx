@@ -1,7 +1,6 @@
 "use client"; // needed for useState hook
 
 // Import API functions and React hooks
-import { parseWeather } from "./api/weatherAPI";
 import { useEffect, useState } from "react";
 import WeatherData from "./utils/weatherInterface";
 
@@ -32,7 +31,13 @@ export default function WeatherPage() {
     try
     {
       setError(null); // Clear previous errors
-      const data = await parseWeather(city);
+      const result = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+      if (!result.ok)
+      {
+        const data = await result.json();
+        throw new Error(data.error || "An unknown error occurred.");
+      }
+      const data = await result.json();
       setWeather(data); // Save data to state
     }
     catch (err)
