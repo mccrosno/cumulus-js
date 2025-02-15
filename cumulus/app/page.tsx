@@ -14,10 +14,10 @@ export default function WeatherPage() {
 
   // State variables
   const [city, setCity] = useState("");
-  const [inputKey, setInputKey] = useState('');
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [forecastLoaded, setForecastLoaded] = useState(false);
 
   // Fetches weather data from API
   const getWeather = async () =>
@@ -63,6 +63,18 @@ export default function WeatherPage() {
     }
   }, [weather]);
 
+  // Animate forecast display
+  useEffect(() => {
+    if (loaded) {
+      const timer = setTimeout(() => setForecastLoaded(true), 1000);
+      return () => clearTimeout(timer);
+    }
+    else
+    {
+      setForecastLoaded(false);
+    }
+  }, [loaded]);
+
   const bgColor = "bg-gradient-to-t from-blue-200 via-blue-300 via-5% to-blue-500 to-70%";
 
   return(
@@ -74,13 +86,14 @@ export default function WeatherPage() {
         loaded={loaded}
       />
       <WeatherContainer weather={weather} loaded={loaded}>
-        <WeatherDisplayContainer/>
-        <WeatherDisplayContainer/>
-        <WeatherDisplayContainer/>
-        <WeatherDisplayContainer/>
-        <WeatherDisplayContainer/>
-        <WeatherDisplayContainer/>
-        <WeatherDisplayContainer/>
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
       </WeatherContainer>
       <ErrorHandler error={error} />
       {/* Simulated Cloud 

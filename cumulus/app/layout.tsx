@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Weather Display",
   description: "Check the weather in your location.",
   icons: {
-    icon: "/sunny_favicon.ico",
+    icon: "/icos/cloudy.ico",
   },
 };
 
