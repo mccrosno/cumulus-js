@@ -29,5 +29,5 @@ Matthew Crosno, junior Computer Engineering student at Mississippi State Univers
 - React
 - Tailwind CSS
 ### APIs
-- OpenWeatherMap API (planned)
+- OpenWeatherMap API
 - Browser Geolocation API (planned)
