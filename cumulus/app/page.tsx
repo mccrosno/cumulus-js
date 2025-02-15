@@ -85,7 +85,7 @@ export default function WeatherPage() {
         getWeather={getWeather}
         loaded={loaded}
       />
-      <WeatherContainer weather={weather} loaded={loaded}>
+      <WeatherContainer weather={weather} loaded={loaded}>        
         <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
         <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
         <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
