@@ -85,15 +85,10 @@ export default function WeatherPage() {
         getWeather={getWeather}
         loaded={loaded}
       />
-      <WeatherContainer weather={weather} loaded={loaded}>        
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
-        <WeatherDisplayContainer weather={weather} forecastLoaded={forecastLoaded} />
+      <WeatherContainer weather={weather} loaded={loaded}>   
+        {Array.from({length: 7}).map((_, index) => (
+          <WeatherDisplayContainer key={index} index={index} weather={weather} forecastLoaded={forecastLoaded} />
+        ))}
       </WeatherContainer>
       <ErrorHandler error={error} />
       {/* Simulated Cloud 
