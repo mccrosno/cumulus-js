@@ -1,29 +1,13 @@
 // expand when more functionality is needed
 // cannot have weather as <any> because it is not a valid type with ESLint
 
-/*
-interface WeatherData_OG
-{
-  list:
-  {
-    city:
-    {
-      name: string;
-    }
-    main:
-    {
-      temp: number;
-    };
-  }[];
-};
-*/
-
 interface WeatherData
 {
   current: {
     temp: number;
   };
   hourly: {
+    dt: number;
     temp: number;
     weather: {
       main: string;
@@ -32,6 +16,7 @@ interface WeatherData
     }[];
   }[];
   daily: {
+    dt: number;
     temp: {
       min: number;
       max: number;

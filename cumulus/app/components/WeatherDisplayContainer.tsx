@@ -2,18 +2,18 @@ import Image from 'next/image';
 import WeatherData from "../utils/weatherInterface";
 import { useEffect, useState } from "react";
 import getIcon from '../utils/getIcon';
-import { error } from 'node:console';
+import getDate from '../utils/getDate';
 
 const WeatherDisplayContainer = ({
-    children,
     index,
     weather,
     forecastLoaded,
+    tempExtrema,
 }:{
-    children?: React.ReactNode;
     index: number;
     weather: WeatherData | null;
     forecastLoaded: boolean;
+    tempExtrema: {min: number, max: number} | null;
 }) => {
 
   const [loaded, setLoaded] = useState(false);
@@ -30,10 +30,13 @@ const WeatherDisplayContainer = ({
     }
   }, [forecastLoaded]);
 
-  const maxTemp = (weather ? weather.daily[index].temp.max : 0).toFixed(0);
-  const minTemp = (weather ? weather.daily[index].temp.min : 0).toFixed(0);
+  const maxDailyTemp = (weather ? weather.daily[index].temp.max : 0);
+  const minDailyTemp = (weather ? weather.daily[index].temp.min : 0);
 
-  const icon = getIcon(weather ? weather.daily[index].weather[0].icon : '') || '';
+  const icon = getIcon(weather ? weather.daily[index].weather[0].icon : '') || null;
+  const date = getDate(weather ? weather.daily[index].dt : 0) || null;
+  
+  const weeklyDisplayWidth = ((maxDailyTemp - minDailyTemp) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100).toFixed(0)
 
   return (
     <div className={`
@@ -43,13 +46,28 @@ const WeatherDisplayContainer = ({
       <div className="grid justify-items-center">
         <Image
         src={`/svgs/${icon}`}
-        width={30}
-        height={30}
+        width={50}
+        height={50}
         alt='Weather Icon'
+        className='mb-4'
         />
         <p className="whitespace-nowrap">
-          {weather ? minTemp + '° | ' + maxTemp + '°' : 'Loading'}
+          {date ? ((index === 0) ? 'Today' : date.weekday) : 'Loading'}
         </p>
+        <div className="flex whitespace-nowrap gap-2 justify-evenly items-center">
+          <p>
+            {weather ? minDailyTemp.toFixed(0) + '°' : 'Loading'}
+          </p>
+          <div className="w-16 h-1.5 rounded-full bg-[rgba(0,0,0,0.2)]">
+            <div
+            className={`h-1.5 translate-x-[50%] rounded-full bg-gradient-to-r from-blue-200 to-orange-200`}
+            style={{ width: `${weeklyDisplayWidth}%` }}
+            ></div>
+          </div>
+          <p>
+            {weather ? maxDailyTemp.toFixed(0) + '°' : 'Loading'}
+          </p>
+        </div>
       </div>
     </div>
   );

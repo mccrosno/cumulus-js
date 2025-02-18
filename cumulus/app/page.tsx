@@ -9,6 +9,8 @@ import CitySearch from "./components/CitySearch";
 import WeatherContainer from "./components/WeatherContainer";
 import ErrorHandler from "./components/ErrorHandler";
 import WeatherDisplayContainer from "./components/WeatherDisplayContainer";
+import getTempExtrema from "./utils/getTempExtrema";
+import { GET } from "./api/weather/route";
 
 export default function WeatherPage() {
 
@@ -16,8 +18,9 @@ export default function WeatherPage() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loaded, setLoaded] = useState(false);
-  const [forecastLoaded, setForecastLoaded] = useState(false);
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [forecastLoaded, setForecastLoaded] = useState<boolean>(false);
+  const [weeklyExtrema, setWeeklyExtrema] = useState<{min: number, max: number} | null>(null);
 
   // Fetches weather data from API
   const getWeather = async () =>
@@ -38,7 +41,7 @@ export default function WeatherPage() {
         throw new Error(data.error || "An unknown error occurred.");
       }
       const data = await result.json();
-      setWeather(data); // Save data to state
+      setWeather(data);
     }
     catch (err)
     {
@@ -54,6 +57,7 @@ export default function WeatherPage() {
   // Animate weather display
   useEffect(() => {
     if (weather) {
+      setWeeklyExtrema(getTempExtrema(weather));
       const timer = setTimeout(() => setLoaded(true), 1000);
       return () => clearTimeout(timer);
     }
@@ -87,7 +91,7 @@ export default function WeatherPage() {
       />
       <WeatherContainer weather={weather} loaded={loaded}>   
         {Array.from({length: 7}).map((_, index) => (
-          <WeatherDisplayContainer key={index} index={index} weather={weather} forecastLoaded={forecastLoaded} />
+          <WeatherDisplayContainer key={index} index={index} weather={weather} forecastLoaded={forecastLoaded} tempExtrema={weeklyExtrema}/>
         ))}
       </WeatherContainer>
       <ErrorHandler error={error} />

@@ -43,7 +43,7 @@ const getIcon = (iconCode: string) => {
 
         // Unknown
         default:
-            return null;
+            return "missing.svg";
     };
 };
 

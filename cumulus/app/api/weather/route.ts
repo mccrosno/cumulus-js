@@ -72,11 +72,11 @@ export async function GET(request: Request) {
 
   // Parse JSON data from Weather API
   const weather = await weatherResponse.json();
-  if (!weather)
+
+  if (!weather || !weather.current)
   {
     return NextResponse.json({error: 'Error: JSON Empty!'}, {status: 500});
   }
 
   return NextResponse.json(weather);
-
 }
