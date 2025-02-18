@@ -3,7 +3,6 @@ import WeatherData from "../utils/weatherInterface";
 import { useEffect, useState } from "react";
 import getIcon from '../utils/getIcon';
 import getDate from '../utils/getDate';
-import MemoTempBar from './TempBar';
 
 const WeatherDisplayContainer = ({
     index,
