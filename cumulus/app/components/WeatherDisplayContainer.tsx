@@ -3,6 +3,7 @@ import WeatherData from "../utils/weatherInterface";
 import { useEffect, useState } from "react";
 import getIcon from '../utils/getIcon';
 import getDate from '../utils/getDate';
+import MemoTempBar from './TempBar';
 
 const WeatherDisplayContainer = ({
     index,
@@ -36,7 +37,8 @@ const WeatherDisplayContainer = ({
   const icon = getIcon(weather ? weather.daily[index].weather[0].icon : '') || null;
   const date = getDate(weather ? weather.daily[index].dt : 0) || null;
   
-  const weeklyDisplayWidth = ((maxDailyTemp - minDailyTemp) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100).toFixed(0)
+  const weeklyDisplayWidth = ((maxDailyTemp - minDailyTemp) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100);
+  const weeklyDisplayOffset = ((minDailyTemp -  (tempExtrema ? tempExtrema.min : minDailyTemp)) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100);
 
   return (
     <div className={`
@@ -59,10 +61,15 @@ const WeatherDisplayContainer = ({
             {weather ? minDailyTemp.toFixed(0) + '°' : 'Loading'}
           </p>
           <div className="w-16 h-1.5 rounded-full bg-[rgba(0,0,0,0.2)]">
-            <div
-            className={`h-1.5 translate-x-[50%] rounded-full bg-gradient-to-r from-blue-200 to-orange-200`}
-            style={{ width: `${weeklyDisplayWidth}%` }}
-            ></div>
+            <div className="relative w-16 h-1.5 rounded-full bg-[rgba(0,0,0,0.2)]">
+              <div
+                className="absolute h-1.5 rounded-full bg-gradient-to-r from-blue-200 to-orange-200"
+                style={{ 
+                  width: `${weeklyDisplayWidth}%`,
+                  left: `${weeklyDisplayOffset}%`,
+                }}
+              ></div>
+            </div>
           </div>
           <p>
             {weather ? maxDailyTemp.toFixed(0) + '°' : 'Loading'}
