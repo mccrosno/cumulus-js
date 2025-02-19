@@ -44,7 +44,7 @@ export async function GET(request: Request) {
   const geoData = await geoResponse.json();
   if (!geoData[0])
   {
-    return NextResponse.json({error: 'Error: JSON Empty!'}, {status: 500});
+    return NextResponse.json({error: 'Error: City not found!'}, {status: 404});
   }
 
   // Extract latitude and longitude from Geolocation API
@@ -75,7 +75,7 @@ export async function GET(request: Request) {
 
   if (!weather || !weather.current)
   {
-    return NextResponse.json({error: 'Error: JSON Empty!'}, {status: 500});
+    return NextResponse.json({error: 'Error: Weather not found!'}, {status: 500});
   }
 
   return NextResponse.json(weather);
