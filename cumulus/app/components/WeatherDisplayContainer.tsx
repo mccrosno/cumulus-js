@@ -11,9 +11,9 @@ const WeatherDisplayContainer = ({
     tempExtrema,
 }:{
     index: number;
-    weather: WeatherData | null;
+    weather: WeatherData;
     forecastLoaded: boolean;
-    tempExtrema: {min: number, max: number} | null;
+    tempExtrema: {min: number, max: number};
 }) => {
 
   const [loaded, setLoaded] = useState(false);
@@ -30,14 +30,14 @@ const WeatherDisplayContainer = ({
     }
   }, [forecastLoaded]);
 
-  const maxDailyTemp = (weather ? weather.daily[index].temp.max : 0);
-  const minDailyTemp = (weather ? weather.daily[index].temp.min : 0);
+  const maxDailyTemp = weather.daily[index].temp.max;
+  const minDailyTemp = weather.daily[index].temp.min;
 
-  const icon = getIcon(weather ? weather.daily[index].weather[0].icon : '') || null;
-  const date = getDate(weather ? weather.daily[index].dt : 0) || null;
+  const icon = getIcon(weather.daily[index].weather[0].icon) || null;
+  const date = getDate(weather.daily[index].dt) || null;
   
-  const weeklyDisplayWidth = ((maxDailyTemp - minDailyTemp) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100);
-  const weeklyDisplayOffset = ((minDailyTemp -  (tempExtrema ? tempExtrema.min : minDailyTemp)) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100);
+  const weeklyDisplayWidth = Math.ceil((maxDailyTemp - minDailyTemp) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100)
+  const weeklyDisplayOffset = Math.floor((minDailyTemp -  (tempExtrema ? tempExtrema.min : minDailyTemp)) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100);
 
   return (
     <div className={`

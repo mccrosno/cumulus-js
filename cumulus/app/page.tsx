@@ -10,7 +10,6 @@ import WeatherContainer from "./components/WeatherContainer";
 import ErrorHandler from "./components/ErrorHandler";
 import WeatherDisplayContainer from "./components/WeatherDisplayContainer";
 import getTempExtrema from "./utils/getTempExtrema";
-import { GET } from "./api/weather/route";
 
 export default function WeatherPage() {
 
@@ -89,11 +88,19 @@ export default function WeatherPage() {
         getWeather={getWeather}
         loaded={loaded}
       />
-      <WeatherContainer weather={weather} loaded={loaded}>   
-        {Array.from({length: 7}).map((_, index) => (
-          <WeatherDisplayContainer key={index} index={index} weather={weather} forecastLoaded={forecastLoaded} tempExtrema={weeklyExtrema}/>
-        ))}
-      </WeatherContainer>
+        <WeatherContainer weather={weather} loaded={loaded}> 
+        {weather && weeklyExtrema ? (
+          Array.from({length: 7}).map((_, index) => (
+            <WeatherDisplayContainer 
+              key={index} 
+              index={index} 
+              weather={weather} 
+              forecastLoaded={forecastLoaded} 
+              tempExtrema={weeklyExtrema}
+            />
+          ))
+        ) : null}
+        </WeatherContainer>
       <ErrorHandler error={error} />
       {/* Simulated Cloud 
       <p className={`bg-white text-black absolute top-[50%] opacity-[80%] right-[0%] -translate-y-[50%] w-[50%] h-[20%] rounded-full blur-2xl`}> Test </p>*/}

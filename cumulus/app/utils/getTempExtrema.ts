@@ -7,7 +7,7 @@ const getTempExtrema = (weatherData: WeatherData): {min : number, max: number} =
     let minTemp = dailyArray[0].temp.min;
     let maxTemp = dailyArray[0].temp.max;
 
-    for (let i = 0; i < dailyArray.length; i++)
+    for (let i = 0; i < 7; i++) // only for the next week
     {
         if (dailyArray[i].temp.min < minTemp)
         {
