@@ -39,8 +39,6 @@ const WeatherDisplayContainer = ({
   const weeklyDisplayWidth = Math.ceil((maxDailyTemp - minDailyTemp) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100)
   const weeklyDisplayOffset = Math.floor((minDailyTemp -  (tempExtrema ? tempExtrema.min : minDailyTemp)) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100);
 
-  // TEST
-
   return (
     <div className={`
     flex-1 transition-[opacity, translate] duration-500 hover:bg-[rgba(255,255,255,0.2)] rounded-xl
