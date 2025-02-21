@@ -41,7 +41,7 @@ const WeatherDisplayContainer = ({
 
   return (
     <div className={`
-    flex-1 transition-[opacity, translate] duration-500
+    flex-1 transition-[opacity, translate] duration-500 hover:bg-[rgba(255,255,255,0.2)] rounded-xl
     ${loaded ? 'opacity-100 translate-y-[0%]' : 'transition-none opacity-0 translate-y-[50%]'}
     `}>
       <div className="grid justify-items-center">
