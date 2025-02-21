@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/globals.css";
@@ -28,8 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script src="https://unpkg.com/react-scan/dist/auto.global.js" /> {/* react-scan */}
-        {/* rest of your scripts go under */}
+        {/* react-scan */}
+        <Script src="https://unpkg.com/react-scan/dist/auto.global.js"
+                strategy="lazyOnload" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
