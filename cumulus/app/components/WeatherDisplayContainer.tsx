@@ -1,19 +1,18 @@
 import Image from 'next/image';
-import WeatherData from "../utils/weatherInterface";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import getIcon from '../utils/getIcon';
 import getDate from '../utils/getDate';
 
 const WeatherDisplayContainer = ({
-    index,
-    weather,
-    forecastLoaded,
-    tempExtrema,
+  index,
+  weather,
+  forecastLoaded,
+  tempExtrema,
 }:{
-    index: number;
-    weather: WeatherData;
-    forecastLoaded: boolean;
-    tempExtrema: {min: number, max: number};
+  index: number;
+  weather: { dt: number; temp: { min: number; max: number }; weather: { icon: string }[] };
+  forecastLoaded: boolean;
+  tempExtrema: {min: number, max: number};
 }) => {
 
   const [loaded, setLoaded] = useState(false);
@@ -30,11 +29,11 @@ const WeatherDisplayContainer = ({
     }
   }, [forecastLoaded]);
 
-  const maxDailyTemp = weather.daily[index].temp.max;
-  const minDailyTemp = weather.daily[index].temp.min;
+  const maxDailyTemp = weather.temp.max;
+  const minDailyTemp = weather.temp.min;
 
-  const icon = getIcon(weather.daily[index].weather[0].icon) || null;
-  const date = getDate(weather.daily[index].dt) || null;
+  const icon = getIcon(weather.weather[0].icon) || null;
+  const date = getDate(weather.dt) || null;
   
   const weeklyDisplayWidth = Math.ceil((maxDailyTemp - minDailyTemp) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100)
   const weeklyDisplayOffset = Math.floor((minDailyTemp -  (tempExtrema ? tempExtrema.min : minDailyTemp)) / (tempExtrema ? tempExtrema.max - tempExtrema.min : maxDailyTemp - minDailyTemp) * 100);
@@ -79,4 +78,4 @@ const WeatherDisplayContainer = ({
   );
 }
 
-export default WeatherDisplayContainer;
+export default memo(WeatherDisplayContainer);

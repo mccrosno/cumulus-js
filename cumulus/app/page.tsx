@@ -90,15 +90,19 @@ export default function WeatherPage() {
       />
         <WeatherContainer weather={weather} loaded={loaded}> 
         {weather && weeklyExtrema ? (
-          Array.from({length: 7}).map((_, index) => (
-            <WeatherDisplayContainer 
-              key={index} 
-              index={index} 
-              weather={weather} 
-              forecastLoaded={forecastLoaded} 
-              tempExtrema={weeklyExtrema}
-            />
-          ))
+          Array.from({ length: 7 }).map((_, index) => {
+            const dailyWeather = weather.daily[index]; // Extract only needed data
+
+            return (
+              <WeatherDisplayContainer 
+                key={index} 
+                index={index} 
+                weather={dailyWeather}  // Pass only relevant data
+                forecastLoaded={forecastLoaded} 
+                tempExtrema={weeklyExtrema}
+              />
+            );
+          })
         ) : null}
         </WeatherContainer>
       <ErrorHandler error={error} />
