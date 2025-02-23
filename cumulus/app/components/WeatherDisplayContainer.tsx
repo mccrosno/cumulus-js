@@ -41,10 +41,11 @@ const WeatherDisplayContainer = ({
 
   return (
     <div className={`
-    flex-1 transition-[opacity, translate] duration-500 p-8 pt-12 pb-12 hover:bg-[rgba(255,255,255,0.2)]
-    rounded-xl
+    flex-1 transition-[opacity, translate, height] duration-500 p-8 pt-12 pb-12 rounded-xl
+    hover:bg-[rgba(255,255,255,0.2)]
     ${loaded ? 'opacity-100 translate-y-[0%]' : 'transition-none opacity-0 translate-y-[50%]'}
-    `}>
+    `}
+    >
       <div className="grid justify-items-center">
         <Image
         src={`/svgs/${icon}`}
