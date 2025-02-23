@@ -9,6 +9,7 @@ import CitySearch from "./components/CitySearch";
 import WeatherContainer from "./components/WeatherContainer";
 import ErrorHandler from "./components/ErrorHandler";
 import WeatherDisplayContainer from "./components/WeatherDisplayContainer";
+import LoadingCircle from "./components/LoadingCircle";
 import getTempExtrema from "./utils/getTempExtrema";
 
 export default function WeatherPage() {
@@ -20,10 +21,13 @@ export default function WeatherPage() {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [forecastLoaded, setForecastLoaded] = useState<boolean>(false);
   const [weeklyExtrema, setWeeklyExtrema] = useState<{min: number, max: number} | null>(null);
+  const [getWeatherCalled, setGetWeatherCalled] = useState<boolean>(false);
 
   // Fetches weather data from API
   const getWeather = async () =>
   {
+    setGetWeatherCalled(true);
+
     if (!city.trim())
     {
       setWeather(null); // Clear previous weather
@@ -57,6 +61,7 @@ export default function WeatherPage() {
   useEffect(() => {
     if (weather) {
       setWeeklyExtrema(getTempExtrema(weather));
+      setGetWeatherCalled(false);
       const timer = setTimeout(() => setLoaded(true), 1000);
       return () => clearTimeout(timer);
     }
@@ -88,22 +93,22 @@ export default function WeatherPage() {
         getWeather={getWeather}
         loaded={loaded}
       />
-        <WeatherContainer weather={weather} loaded={loaded}> 
-        {weather && weeklyExtrema ? (
-          Array.from({ length: 7 }).map((_, index) => {
-            const dailyWeather = weather.daily[index]; // Extract only needed data
-
-            return (
-              <WeatherDisplayContainer 
-                key={index} 
-                index={index} 
-                weather={dailyWeather}  // Pass only relevant data
-                forecastLoaded={forecastLoaded} 
-                tempExtrema={weeklyExtrema}
-              />
-            );
-          })
-        ) : null}
+      <LoadingCircle weatherAPICalled={getWeatherCalled} loaded={loaded} hasError={error !== null}/>
+      <WeatherContainer weather={weather} loaded={loaded}> 
+      {weather && weeklyExtrema ? (
+        Array.from({ length: 7 }).map((_, index) => {
+          const dailyWeather = weather.daily[index]; // Extract only needed data
+          return (
+            <WeatherDisplayContainer 
+              key={index} 
+              index={index} 
+              weather={dailyWeather}  // Pass only relevant data
+              forecastLoaded={forecastLoaded} 
+              tempExtrema={weeklyExtrema}
+            />
+          );
+        })
+      ) : null}
         </WeatherContainer>
       <ErrorHandler error={error} />
       {/* Simulated Cloud 

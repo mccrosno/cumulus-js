@@ -1,0 +1,13 @@
+@keyframes loading
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading
+{
+    animation-name: loading;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    animation-iteration-count: infinite;
+}

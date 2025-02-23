@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useEffect, useState, memo } from "react";
 import getIcon from '../utils/getIcon';
 import getDate from '../utils/getDate';
+import TempBar from './TempBar';
 
 const WeatherDisplayContainer = ({
   index,
@@ -40,36 +41,27 @@ const WeatherDisplayContainer = ({
 
   return (
     <div className={`
-    flex-1 transition-[opacity, translate] duration-500 hover:bg-[rgba(255,255,255,0.2)] rounded-xl
+    flex-1 transition-[opacity, translate] duration-500 p-8 pt-12 pb-12 hover:bg-[rgba(255,255,255,0.2)]
+    rounded-xl
     ${loaded ? 'opacity-100 translate-y-[0%]' : 'transition-none opacity-0 translate-y-[50%]'}
     `}>
       <div className="grid justify-items-center">
         <Image
         src={`/svgs/${icon}`}
-        width={50}
-        height={50}
+        height={80}
+        width={80}
         alt='Weather Icon'
-        className='mb-4'
+        className='mb-4 h-[80px]'
         />
-        <p className="whitespace-nowrap">
+        <p className="whitespace-nowrap text-xl">
           {date ? ((index === 0) ? 'Today' : date.weekday) : 'Loading'}
         </p>
         <div className="flex whitespace-nowrap gap-2 justify-evenly items-center">
-          <p>
+          <p className="text-lg">
             {weather ? minDailyTemp.toFixed(0) + '°' : 'Loading'}
           </p>
-          <div className="w-16 h-1.5 rounded-full bg-[rgba(0,0,0,0.2)]">
-            <div className="relative w-16 h-1.5 rounded-full bg-[rgba(0,0,0,0.2)]">
-              <div
-                className="absolute h-1.5 rounded-full bg-gradient-to-r from-blue-200 to-orange-200"
-                style={{ 
-                  width: `${weeklyDisplayWidth}%`,
-                  left: `${weeklyDisplayOffset}%`,
-                }}
-              ></div>
-            </div>
-          </div>
-          <p>
+          <TempBar width={weeklyDisplayWidth} offset={weeklyDisplayOffset}/>
+          <p className="text-lg">
             {weather ? maxDailyTemp.toFixed(0) + '°' : 'Loading'}
           </p>
         </div>
