@@ -3,11 +3,13 @@ const CitySearch = ({
     setCity,
     getWeather,
     loaded,
+    daySelected,
   }: {
     city: string;
     setCity: (city: string) => void;
     getWeather: () => void;
     loaded: boolean;
+    daySelected: number | null;
   }) => {
     // Handles key presses
     const handleKeyPressed = (key: string) => {
@@ -18,7 +20,11 @@ const CitySearch = ({
     };
 
     return (
-        <div className={`absolute transition-[bottom] duration-1000 ${loaded ? 'bottom-[25%]' : 'bottom-[50%] z-[1]'}`}>
+        <div className={`
+          absolute transition-[bottom] duration-1000
+          ${loaded ? 'bottom-[25%]' : 'bottom-[50%] z-[1]'}
+          ${loaded && daySelected !== null ? 'bottom-[5%]' : ''}
+        `}>
             <input
                 className={`px-4 py-2 rounded-l-xl placeholder-gray-600 text-black`}
                 name='citySearch'

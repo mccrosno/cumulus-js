@@ -4,16 +4,22 @@ import getIcon from '../utils/getIcon';
 import getDate from '../utils/getDate';
 import TempBar from './TempBar';
 
-const WeatherDisplayContainer = ({
+const DailyForecast = ({
   index,
   weather,
   forecastLoaded,
+  setForecastLoaded,
   tempExtrema,
+  daySelected,
+  setDaySelected,
 }:{
   index: number;
   weather: { dt: number; temp: { min: number; max: number }; weather: { icon: string }[] };
   forecastLoaded: boolean;
+  setForecastLoaded: (isLoaded: boolean) => void;
   tempExtrema: {min: number, max: number};
+  daySelected: number | null;
+  setDaySelected: (day: number) => void;
 }) => {
 
   const [loaded, setLoaded] = useState(false);
@@ -41,10 +47,16 @@ const WeatherDisplayContainer = ({
 
   return (
     <div className={`
-    flex-1 transition-[opacity, translate] duration-500 p-8 pt-12 pb-12 rounded-xl
+    transition-[opacity, translate] duration-500
+    flex-1 p-8 pt-12 pb-12 rounded-xl
     hover:bg-[rgba(255,255,255,0.2)]
-    ${loaded ? 'opacity-100 translate-y-[0%]' : 'transition-none opacity-0 translate-y-[50%]'}
+    ${loaded && daySelected === null ? 'opacity-100 translate-y-[0%]' : 'opacity-0 translate-y-[50%]'}
     `}
+    onClick={() => {
+      setDaySelected(index);
+      const timer = setTimeout(() => setForecastLoaded(false), 500)
+      return () => clearTimeout(timer);
+    }}
     >
       <div className="grid justify-items-center">
         <Image
@@ -71,4 +83,4 @@ const WeatherDisplayContainer = ({
   );
 }
 
-export default memo(WeatherDisplayContainer);
+export default memo(DailyForecast);
