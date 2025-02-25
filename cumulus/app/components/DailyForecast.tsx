@@ -54,8 +54,6 @@ const DailyForecast = ({
     `}
     onClick={() => {
       setDaySelected(index);
-      const timer = setTimeout(() => setForecastLoaded(false), 500)
-      return () => clearTimeout(timer);
     }}
     >
       <div className="grid justify-items-center">

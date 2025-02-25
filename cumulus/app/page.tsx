@@ -24,6 +24,7 @@ export default function WeatherPage() {
   const [weeklyExtrema, setWeeklyExtrema] = useState<{min: number, max: number} | null>(null); // stores high/low for week
   const [getWeatherCalled, setGetWeatherCalled] = useState<boolean>(false); // if weather api has been called, but not fetched (for loading circle)
   const [daySelected, setDaySelected] = useState<number | null>(null); // stores selected day for detailed forecast
+  const [unloadDailyForecast, setUnloadDailyForecast] = useState<boolean>(false);
 
   // Fetches weather data from API
   const getWeather = async () =>
@@ -78,6 +79,21 @@ export default function WeatherPage() {
     }
   }, [weather]);
 
+  useEffect(() => {
+    if (daySelected !== null)
+    {
+      const timer = setTimeout(() => {
+        setUnloadDailyForecast(true);
+        setForecastLoaded(false);
+      }, 500)
+      return () => clearTimeout(timer);
+    }
+    else
+    {
+      setUnloadDailyForecast(false);
+    }
+  }, [daySelected]);
+
   // Animate forecast display
   useEffect(() => {
     if (loaded) {
@@ -95,9 +111,10 @@ export default function WeatherPage() {
   return(
     <div className={`
       flex flex-col relative items-center
-      transition-colors h-screen custom-scrollbar
+      transition-colors h-dvh custom-scrollbar
       overflow-hidden
-      ${bgColor}`}>
+      ${bgColor}
+      `}>
       <CitySearch
         city={city}
         setCity={setCity}
@@ -107,9 +124,9 @@ export default function WeatherPage() {
       />
       <LoadingCircle weatherAPICalled={getWeatherCalled} loaded={loaded} hasError={error !== null}/>
       <WeatherContainer weather={weather} loaded={loaded} daySelected={daySelected}> 
-        {weather && weeklyExtrema && forecastLoaded ? (
+        {weather && weeklyExtrema && !unloadDailyForecast ? (
           Array.from({ length: 7 }).map((_, index) => {
-            const dailyWeather = weather.daily[index]; // Extract only needed data
+            const dailyWeather = weather.daily[index];
             return (
               <DailyForecast 
                 key={index} 
@@ -124,8 +141,10 @@ export default function WeatherPage() {
             );
           })
         ) : null}
+        {weather && daySelected !== null &&
+          <DetailedForecast daySelected={daySelected} weather={weather.hourly} />
+        }
       </WeatherContainer>
-      <DetailedForecast daySelected={daySelected} />
       <ErrorHandler error={error} />
       {/* Simulated Cloud 
       <p className={`bg-white text-black absolute top-[50%] opacity-[80%] right-[0%] -translate-y-[50%] w-[50%] h-[20%] rounded-full blur-2xl`}> Test </p>*/}

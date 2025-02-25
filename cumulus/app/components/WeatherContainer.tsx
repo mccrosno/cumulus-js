@@ -13,13 +13,16 @@ const WeatherContainer = ({
     daySelected: number | null;
     children: React.ReactNode;
 }) => {
+
+    console.log(weather && loaded && daySelected !== null ? 'h-[80%] top-[5%]' : '');
+
     return (
         <div className={`
-            flex items-center relative top-[25%]
+            flex items-center relative
             transition-[opacity,width,height,top] duration-1000
             ${weather ? 'opacity-100 w-[80%]' : 'opacity-0 w-0'}
-            ${loaded ? 'h-[40%]' : 'h-1'}
-            ${weather && loaded && (daySelected !== null) ? 'h-[80%] top-[5%]' : ''}
+            ${loaded && daySelected === null ? 'h-[50%]' : 'h-1'}
+            ${weather && loaded && daySelected !== null ? 'top-[5%] h-[80%]' : 'top-[20%]'}
             ${glassmorphic()}
             gradBorder overflow-x-auto overflow-y-clip custom-scrollbar
         `}>
