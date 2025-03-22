@@ -10,6 +10,8 @@ const DetailedForecast = ({
 
     const [loaded, setLoaded] = useState<boolean>(false);
 
+    loaded ?? console.log('');
+
     useEffect(() => {
         if (daySelected !== null)
         {

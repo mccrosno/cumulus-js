@@ -133,7 +133,7 @@ export default function WeatherPage() {
                 index={index} 
                 weather={dailyWeather}
                 forecastLoaded={forecastLoaded}
-                setForecastLoaded={setForecastLoaded}
+                //setForecastLoaded={setForecastLoaded}
                 tempExtrema={weeklyExtrema}
                 daySelected={daySelected}
                 setDaySelected={setDaySelected}
