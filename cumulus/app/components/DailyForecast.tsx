@@ -8,7 +8,6 @@ const DailyForecast = ({
   index,
   weather,
   forecastLoaded,
-  //setForecastLoaded,
   tempExtrema,
   daySelected,
   setDaySelected,
@@ -16,7 +15,6 @@ const DailyForecast = ({
   index: number;
   weather: { dt: number; temp: { min: number; max: number }; weather: { icon: string }[] };
   forecastLoaded: boolean;
-  //setForecastLoaded: (isLoaded: boolean) => void;
   tempExtrema: {min: number, max: number};
   daySelected: number | null;
   setDaySelected: (day: number) => void;
