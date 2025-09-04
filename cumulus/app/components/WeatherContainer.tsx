@@ -24,10 +24,11 @@ const WeatherContainer = ({
             ${loaded && daySelected === null ? 'h-[50%]' : 'h-1'}
             ${weather && loaded && daySelected !== null ? 'top-[5%] h-[80%]' : 'top-[20%]'}
             ${glassmorphic()}
-            gradBorder overflow-x-auto overflow-y-clip custom-scrollbar
+            gradBorder overflow-y-clip custom-scrollbar
+            ${weather && loaded && daySelected === null ? `overflow-x-auto` : `overflow-x-clip`}
         `}>
             <i></i>
-            <div className="flex p-4 gap-8 w-full">
+            <div className="flex p-4 gap-8">
                 {children}
             </div>
         </div>

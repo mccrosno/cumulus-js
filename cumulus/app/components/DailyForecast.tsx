@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useEffect, useState, memo } from "react";
 import getIcon from '../utils/getIcon';
-import getDate from '../utils/getDate';
+import { getDate } from '../utils/getDate';
 import TempBar from './TempBar';
 
 const DailyForecast = ({
@@ -46,7 +46,7 @@ const DailyForecast = ({
   return (
     <div className={`
     transition-[opacity, translate] duration-500
-    flex-1 p-8 pt-12 pb-12 rounded-xl
+    flex-1 p-4 pt-12 pb-12 rounded-xl
     hover:bg-[rgba(255,255,255,0.2)]
     ${loaded && daySelected === null ? 'opacity-100 translate-y-[0%]' : 'opacity-0 translate-y-[50%]'}
     `}
@@ -56,11 +56,11 @@ const DailyForecast = ({
     >
       <div className="grid justify-items-center">
         <Image
-        src={`/svgs/${icon}`}
-        height={80}
-        width={80}
-        alt='Weather Icon'
-        className='mb-4 h-[80px]'
+          src={`/svgs/${icon}`}
+          height={80}
+          width={80}
+          alt='Weather Icon'
+          className='mb-4 h-[80px]'
         />
         <p className="whitespace-nowrap text-xl">
           {date ? ((index === 0) ? 'Today' : date.weekday) : 'Loading'}

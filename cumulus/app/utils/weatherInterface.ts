@@ -4,7 +4,13 @@
 interface WeatherData
 {
   current: {
+    dt: number;
     temp: number;
+    weather: {
+      main: string;
+      description: string;
+      icon: string;
+    }[];
   };
   hourly: {
     dt: number;

@@ -3,6 +3,7 @@
 // Import API functions and React hooks
 import { useEffect, useState } from "react";
 import WeatherData from "./utils/weatherInterface";
+import { getDt, getHourDt } from "./utils/getDate"
 
 // Import Components
 import CitySearch from "./components/CitySearch";
@@ -26,7 +27,7 @@ export default function WeatherPage() {
   const [daySelected, setDaySelected] = useState<number | null>(null); // stores selected day for detailed forecast
   const [unloadDailyForecast, setUnloadDailyForecast] = useState<boolean>(false);
 
-  // Fetches weather data from API
+    // Fetches weather data from API
   const getWeather = async () =>
   {
     setGetWeatherCalled(true);
@@ -125,7 +126,7 @@ export default function WeatherPage() {
       <LoadingCircle weatherAPICalled={getWeatherCalled} loaded={loaded} hasError={error !== null}/>
       <WeatherContainer weather={weather} loaded={loaded} daySelected={daySelected}> 
         {weather && weeklyExtrema && !unloadDailyForecast ? (
-          Array.from({ length: 7 }).map((_, index) => {
+          Array.from({ length: 8 }).map((_, index) => {
             const dailyWeather = weather.daily[index];
             return (
               <DailyForecast 
@@ -141,7 +142,7 @@ export default function WeatherPage() {
           })
         ) : null}
         {weather && daySelected !== null &&
-          <DetailedForecast daySelected={daySelected} weather={weather.hourly} />
+          <DetailedForecast daySelected={daySelected} weather={weather} />
         }
       </WeatherContainer>
       <ErrorHandler error={error} />

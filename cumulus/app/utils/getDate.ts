@@ -1,4 +1,4 @@
-interface WeatherDate {
+export interface WeatherDate {
     second: number;
     minute: number;
     hour: number;
@@ -8,7 +8,7 @@ interface WeatherDate {
     weekday: string;
 };
 
-const getDate = (dt : number): WeatherDate | null => {
+export const getDate = (dt : number): WeatherDate | null => {
 
     if (!dt)
     {
@@ -30,4 +30,29 @@ const getDate = (dt : number): WeatherDate | null => {
       };
 };
 
-export default getDate;
+export const getDt = (): number => {
+    
+    const date = new Date();
+
+    return date.getTime() * 1000;
+}
+
+export const getHourDt = (): number => {
+
+    const seconds = getDt();
+
+    return Math.floor(seconds / 3600) * 3600
+
+}
+
+export const get12HTime = (hour: number): number => {
+
+    return ((hour + 11) % 12) + 1;
+
+}
+
+export const isPM = (hour: number): boolean => {
+
+    return (hour - 12 >= 0);
+
+}
